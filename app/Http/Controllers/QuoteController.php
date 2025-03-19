@@ -25,7 +25,7 @@ class QuoteController extends Controller
         }
     }
 
-    public function saveQuote(Request $request)
+    public function save(Request $request)
     {
         try {
             return response()->json($this->quoteService->saveQuote($request), 201);
@@ -36,7 +36,7 @@ class QuoteController extends Controller
         }
     }
 
-    public function getSavedQuotes()
+    public function list()
     {
         try {
             return response()->json($this->quoteService->getSavedQuotes());
@@ -45,7 +45,18 @@ class QuoteController extends Controller
         }
     }
 
-    public function deleteQuote($id)
+    public function update($id, Request $request)
+    {
+        try {
+            return response()->json($this->quoteService->updateQuote($id, $request));
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 400);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
+    public function delete($id)
     {
         try {
             return response()->json($this->quoteService->deleteQuote($id));

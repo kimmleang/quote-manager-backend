@@ -27,8 +27,9 @@ class AuthService {
         $token = JWTAuth::fromUser($user);
 
         return [
+            'message' => 'User registered successful',
             'user' => $user,
-            'authorisation' => [
+            'authorization' => [
                 'type' => 'Bearer',
                 'token' => $token,
             ],
@@ -51,8 +52,9 @@ class AuthService {
         $user = auth()->user();
 
         return [
+            'message' => 'Login successful',
             'user' => $user,
-            'authorisation' => [
+            'authorization' => [
                 'type' => 'Bearer',
                 'token' => $token,
             ],

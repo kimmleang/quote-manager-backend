@@ -25,5 +25,6 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/quotes/random', [QuoteController::class, 'fetchRandomQuote']);
     Route::post('/quotes', [QuoteController::class, 'save']);
     Route::get('/quotes', [QuoteController::class, 'list']);
+    Route::put('/quotes/{id}', [QuoteController::class, 'update']);
     Route::delete('/quotes/{id}', [QuoteController::class, 'delete']);
 });

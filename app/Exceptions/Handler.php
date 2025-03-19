@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class Handler extends ExceptionHandler
 {
@@ -27,4 +29,25 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        return response()->json([
+            'error' => 'Unauthorized access. Please provide a valid token.'
+        ], 401);
+    }
+
+    public function render($request, Throwable $exception)
+    {
+        // unauthenticated users
+        if ($exception instanceof AuthenticationException) {
+            return response()->json([
+                'error' => 'Unauthorized access. Please provide a valid token.'
+            ], 401);
+        }
+    
+        // Handle all exceptions
+        return parent::render($request, $exception);
+    }
+    
 }
