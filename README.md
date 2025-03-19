@@ -13,19 +13,21 @@ This project is a Laravel 10 application with JWT (JSON Web Token) authenticatio
 
 Follow these steps to set up the project on your local machine.
 
+
 ### Step 1: Clone the Repository
 
 Clone the repository to your local machine.
 
-````bash
+
+```bash
 git clone https://github.com/kimmleang/quote-manager-backend
 cd quote-manager-backend
-
+```
 
 Copy the example environment file and configure it.
-```bash
+```bash 
 cp .env.example .env
-````
+```
 
 Edit the .env file to match your database configuration and other settings. Make sure to set the following variables:
 
@@ -37,7 +39,6 @@ DB_DATABASE=your_database
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
-
 Generate the application key.
 
 ```bash
