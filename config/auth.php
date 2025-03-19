@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'jwt', // Use 'jwt' as the driver for Tymon\JWTAuth
+            'provider' => 'users',
+            'hash' => false,
+        ],
     ],
 
     /*

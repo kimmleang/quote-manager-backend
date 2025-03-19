@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\QuoteController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +15,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/login', [AuthController::class, 'login']);  
+Route::post('/register', [AuthController::class, 'register']);
+Route::middleware('auth:api')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    
+    //Quote routes
+    Route::get('/quotes/random', [QuoteController::class, 'fetchRandomQuote']);
+    Route::post('/quotes', [QuoteController::class, 'save']);
+    Route::get('/quotes', [QuoteController::class, 'list']);
+    Route::delete('/quotes/{id}', [QuoteController::class, 'delete']);
 });
