@@ -69,16 +69,16 @@ Start the local development server.
 php artisan serve
 ```
 Access API documentation via Swagger UI or you can use Postman (Optional)
-# Open in browser: 
+Open in browser: 
 
 ```bash
 http://localhost:8000/api/documentation
 ```
 
-# Testing API with Swagger:
-# 1. Open the link: http://localhost:8000/api/documentation
-# 2. Click the "Authorize" button and enter "Bearer <your_access_token>"
-# 3. Expand an API endpoint, such as /api/register or /api/login
-# 4. Click "Try it out" and enter the required details
-# 5. Click "Execute" to send the request and view the response
-# 6. Test protected routes (e.g., /api/quotes) by logging in and using the token for authentication
+Testing API with Swagger:
+1. Open the link: http://localhost:8000/api/documentation
+2. Click the "Authorize" button and enter "Bearer <your_access_token>"
+3. Expand an API endpoint, such as /api/register or /api/login
+4. Click "Try it out" and enter the required details
+5. Click "Execute" to send the request and view the response
+6. Test protected routes (e.g., /api/quotes) by logging in and using the token for authentication
