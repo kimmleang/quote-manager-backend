@@ -215,6 +215,48 @@
                 ],
                 "summary": "Retrieve all saved favorite quotes for the authenticated user",
                 "operationId": "5c4f546da61b21012bb56b19dee11c68",
+                "parameters": [
+                    {
+                        "name": "filter[content]",
+                        "in": "query",
+                        "description": "Filter quotes by content",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "inspiration"
+                        }
+                    },
+                    {
+                        "name": "filter[author]",
+                        "in": "query",
+                        "description": "Filter quotes by author",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "John Doe"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "description": "Sort quotes by created_at or updated_at",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "example": "-created_at"
+                        }
+                    },
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "description": "Number of quotes per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful operation",
@@ -319,6 +361,77 @@
             }
         },
         "/api/quotes/{id}": {
+            "put": {
+                "tags": [
+                    "Quotes"
+                ],
+                "summary": "Update a saved favorite quote by ID",
+                "operationId": "32ee5a5ad6f18075d750cdb311770271",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the quote to update",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Updated quote content."
+                                    },
+                                    "author": {
+                                        "type": "string",
+                                        "example": "Updated Author"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Quote updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Quote updated successfully"
+                                        },
+                                        "quote": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Quote not found"
+                    },
+                    "500": {
+                        "description": "Internal Server Error"
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            },
             "delete": {
                 "tags": [
                     "Quotes"

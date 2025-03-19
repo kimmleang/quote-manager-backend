@@ -32,7 +32,7 @@ interface QuoteControllerInterface
      * @OA\Post(
      *     path="/api/quotes",
      *     summary="Save a favorite quote for the authenticated user",
-     *     tags={"Quotes"}
+     *     tags={"Quotes"},
      *     security={{"Bearer":{}}},
      *     @OA\RequestBody(
      *         required=true,
@@ -69,6 +69,34 @@ interface QuoteControllerInterface
      *     summary="Retrieve all saved favorite quotes for the authenticated user",
      *     tags={"Quotes"},
      *     security={{"Bearer":{}}},
+     *     @OA\Parameter(
+     *         name="filter[content]",
+     *         in="query",
+     *         required=false,
+     *         description="Filter quotes by content",
+     *         @OA\Schema(type="string", example="inspiration")
+     *     ),
+     *     @OA\Parameter(
+     *         name="filter[author]",
+     *         in="query",
+     *         required=false,
+     *         description="Filter quotes by author",
+     *         @OA\Schema(type="string", example="John Doe")
+     *     ),
+     *     @OA\Parameter(
+     *         name="sort",
+     *         in="query",
+     *         required=false,
+     *         description="Sort quotes by created_at or updated_at",
+     *         @OA\Schema(type="string", example="-created_at")
+     *     ),
+     *     @OA\Parameter(
+     *         name="per_page",
+     *         in="query",
+     *         required=false,
+     *         description="Number of quotes per page",
+     *         @OA\Schema(type="integer", example=10)
+     *     ),
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -89,7 +117,7 @@ interface QuoteControllerInterface
      *     )
      * )
      */
-    public function getSavedQuotes();
+    public function getSavedQuotes(Request $request);
 
     /**
      * @OA\Delete(
@@ -123,4 +151,46 @@ interface QuoteControllerInterface
      * )
      */
     public function deleteQuote($id);
+
+    /**
+     * @OA\Put(
+     *     path="/api/quotes/{id}",
+     *     summary="Update a saved favorite quote by ID",
+     *     tags={"Quotes"},
+     *     security={{"Bearer":{}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         in="path",
+     *         required=true,
+     *         description="ID of the quote to update",
+     *         @OA\Schema(type="integer", example=1)
+     *     ),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="content", type="string", example="Updated quote content."),
+     *             @OA\Property(property="author", type="string", example="Updated Author")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=200,
+     *         description="Quote updated successfully",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="message", type="string", example="Quote updated successfully"),
+     *             @OA\Property(property="quote", type="object")
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=404,
+     *         description="Quote not found"
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Internal Server Error"
+     *     )
+     * )
+     */
+    public function updateQuote($id, Request $request);
 }
