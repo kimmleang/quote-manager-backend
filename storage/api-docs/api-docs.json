@@ -205,7 +205,12 @@
                     "500": {
                         "description": "Internal Server Error"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/api/quotes": {
@@ -296,7 +301,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": []
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -355,7 +360,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -428,7 +433,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": []
+                        "bearerAuth": []
                     }
                 ]
             },
@@ -476,7 +481,7 @@
                 },
                 "security": [
                     {
-                        "Bearer": []
+                        "bearerAuth": []
                     }
                 ]
             }
@@ -490,6 +495,12 @@
                 "in": "header",
                 "bearerFormat": "JWT",
                 "scheme": "bearer"
+            },
+            "BearerAuth": {
+                "type": "apiKey",
+                "description": "Enter JWT token in format (Bearer <token>)",
+                "name": "Authorization",
+                "in": "header"
             }
         }
     },

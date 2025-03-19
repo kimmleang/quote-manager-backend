@@ -11,6 +11,7 @@ interface QuoteControllerInterface
      *     path="/api/quotes/random",
      *     summary="Fetch a random quote from the external API",
      *     tags={"Quotes"},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Response(
      *         response=200,
      *         description="Successful operation",
@@ -33,7 +34,7 @@ interface QuoteControllerInterface
      *     path="/api/quotes",
      *     summary="Save a favorite quote for the authenticated user",
      *     tags={"Quotes"},
-     *     security={{"Bearer":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -68,7 +69,7 @@ interface QuoteControllerInterface
      *     path="/api/quotes",
      *     summary="Retrieve all saved favorite quotes for the authenticated user",
      *     tags={"Quotes"},
-     *     security={{"Bearer":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="filter[content]",
      *         in="query",
@@ -124,7 +125,7 @@ interface QuoteControllerInterface
      *     path="/api/quotes/{id}",
      *     summary="Delete a saved favorite quote by ID",
      *     tags={"Quotes"},
-     *     security={{"Bearer":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",
@@ -157,7 +158,7 @@ interface QuoteControllerInterface
      *     path="/api/quotes/{id}",
      *     summary="Update a saved favorite quote by ID",
      *     tags={"Quotes"},
-     *     security={{"Bearer":{}}},
+     *     security={{"bearerAuth":{}}},
      *     @OA\Parameter(
      *         name="id",
      *         in="path",

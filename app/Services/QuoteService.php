@@ -24,8 +24,9 @@ class QuoteService
 
                 if ($quoteData && isset($quoteData['body'], $quoteData['author'])) {
                     return [
-                        'content' => $quoteData['body'],
+                        'message' => 'Quote generate successfully',
                         'author' => $quoteData['author'],
+                        'content' => $quoteData['body'],
                     ];
                 }
                 throw new Exception('Invalid quote data from FavQs API');
@@ -33,8 +34,10 @@ class QuoteService
             throw new Exception('Failed to fetch quote from FavQs API');
         } catch (Exception $e) {
             return [
-                'content' => 'This is a fallback quote.',
+                'message' => 'Failed to fetch quote from external API',
                 'author' => 'Fallback Author',
+                'content' => 'This is a fallback quote.',
+
             ];
         }
     }
@@ -60,26 +63,28 @@ class QuoteService
     }
 
     //list saved quotes
-    public function getSavedQuotes($request)
+    public function getSavedQuotes($request = null)
     {
-        $quotes = QueryBuilder::for(Quote::class)
+        $query = QueryBuilder::for(Quote::class)
             ->where('user_id', Auth::id())
             ->allowedFilters([
                 AllowedFilter::partial('content'),
-                AllowedFilter::partial('author'),  
+                AllowedFilter::partial('author'),
             ])
-            ->allowedSorts('created_at', 'updated_at') 
-            ->defaultSort('-created_at') 
-            ->paginate($request->input('per_page', 10)); 
+            ->allowedSorts('id','created_at', 'updated_at')
+            ->defaultSort('id');
     
-
-        if ($quotes->isEmpty()) {
-            return [
-                'message' => 'No quotes were found.',
-            ];
+        // Handle pagination if $request is provided
+        if ($request) {
+            $quotes = $query->paginate($request->input('per_page', 10));
+        } else {
+            $quotes = $query->get();
         }
     
-        return $quotes;
+        return [
+            'message' => 'Saved quotes retrieved successfully',
+            'data' => $quotes,
+        ];
     }
 
     //update quote
@@ -103,7 +108,7 @@ class QuoteService
 
         return [
             'message' => 'Quote updated successfully',
-            'quote' => $quote,
+            'data' => $quote,
         ];
     }
 
