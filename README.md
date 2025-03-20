@@ -7,7 +7,7 @@ This project is a Laravel 10 application with JWT (JSON Web Token) authenticatio
 -   PHP >= 8.0
 -   Composer
 -   Laravel 10
--   MySQL / Postgres (or any other supported database)
+-   MySQL / Postgres
 
 ## Installation
 
