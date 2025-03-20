@@ -42,7 +42,6 @@ class QuoteService
         }
     }
 
-    //save quote 
     public function saveQuote($request)
     {
         $validated = $request->validate([
@@ -50,17 +49,30 @@ class QuoteService
             'author' => 'required|string',
         ]);
 
+        $existingQuote = Quote::where('user_id', Auth::id())
+            ->where('content', $validated['content'])
+            ->where('author', $validated['author'])
+            ->first();
+
+        if ($existingQuote) {
+            return response()->json([
+                'message' => 'Quote already exists',
+                'quote' => $existingQuote,
+            ], 409); 
+        }
+
         $quote = Quote::create([
             'user_id' => Auth::id(),
             'content' => $validated['content'],
             'author' => $validated['author'],
         ]);
 
-        return [
+        return response()->json([
             'message' => 'Quote saved successfully',
             'quote' => $quote,
-        ];
+        ]);
     }
+
 
     //list saved quotes
     public function getSavedQuotes($request = null)
@@ -74,7 +86,7 @@ class QuoteService
             ->allowedSorts('id','created_at', 'updated_at')
             ->defaultSort('id');
     
-        // Handle pagination if $request is provided
+        // Handle pagination
         if ($request) {
             $quotes = $query->paginate($request->input('per_page', 10));
         } else {
