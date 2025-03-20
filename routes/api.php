@@ -20,11 +20,15 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/profile', [AuthController::class, 'profile']); 
     
     //Quote routes
-    Route::get('/quotes/random', [QuoteController::class, 'fetchRandomQuote']);
-    Route::post('/quotes', [QuoteController::class, 'save']);
-    Route::get('/quotes', [QuoteController::class, 'list']);
-    Route::put('/quotes/{id}', [QuoteController::class, 'update']);
-    Route::delete('/quotes/{id}', [QuoteController::class, 'delete']);
+    Route::prefix('quotes')->group(function () {
+        Route::post('/', [QuoteController::class, 'save']);
+        Route::get('/', [QuoteController::class, 'list']);
+        Route::put('/{id}', [QuoteController::class, 'update']);
+        Route::delete('/{id}', [QuoteController::class, 'delete']);
+    });
 });
+
+Route::get('/quotes/random', [QuoteController::class, 'fetchRandomQuote']);

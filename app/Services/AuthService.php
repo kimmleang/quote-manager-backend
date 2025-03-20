@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -72,5 +73,14 @@ class AuthService {
         } catch (Exception $e) {
             throw new Exception('Failed to log out, please try again.');
         }
+    }
+    public function profile()
+    {
+        $user = Auth::user();
+
+        return response()->json([
+            'message' => 'User profile retrieved successfully',
+            'user' => $user,
+        ]);
     }
 }
