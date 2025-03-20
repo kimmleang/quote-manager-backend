@@ -65,6 +65,15 @@ class AuthController extends Controller
             return response()->json(['error' => 'Could not refresh token'], 500);
         }
     }
+    public function profile()
+    {
+        try {
+            $userProfile = $this->authService->profile();
+            return response()->json($userProfile);
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
 
 
 }
