@@ -2,12 +2,16 @@
 
 This project is a Laravel 10 application with JWT (JSON Web Token) authentication for user registration and login, and Swagger documentation for API endpoints.
 
+## 🔗Demo
+Check out the live version here: [Quote Manager](https://quotemanager.kimleang.site/)
+
 ## Requirements
 
 -   PHP >= 8.0
 -   Composer
 -   Laravel 10
 -   MySQL / Postgres
+
 
 ## Installation
 
