@@ -68,6 +68,13 @@ Start the local development server.
 ```bash
 php artisan serve
 ```
+
+Testing api endpoint with PHPunit
+
+```bash
+php artisan test
+```
+
 Access API documentation via Swagger UI or you can use Postman (Optional)
 Open in browser: 
 
