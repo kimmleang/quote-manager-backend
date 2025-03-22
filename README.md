@@ -79,6 +79,12 @@ Testing api endpoint with PHPunit
 php artisan test
 ```
 
+Generate Swagger interface
+
+```bash
+php artisan l5-swagger:generate
+```
+
 Access API documentation via Swagger UI or you can use Postman (Optional)
 Open in browser: 
 
