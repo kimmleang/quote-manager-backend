@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\QuoteController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\TelegramController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,3 +34,7 @@ Route::middleware('auth:api')->group(function () {
 });
 
 Route::get('/quotes/random', [QuoteController::class, 'fetchRandomQuote']);
+
+
+Route::post('/contact', [ContactController::class, 'store']);
+Route::post('/telegram/webhook', [TelegramController::class, 'handleWebhook']);
